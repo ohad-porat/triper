@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client",
+    "e2e"
+  ],
+  "scripts": {
+    "build:client": "yarn workspace triper-client build",
+    "dev": "yarn workspace triper-server dev",
+    "dev:debug": "yarn workspace triper-server dev:debug",
+    "heroku-postbuild": "yarn workspace triper-client build",
+    "start": "yarn workspace triper-server start",
+    "dev:cypress": "yarn workspace triper-server dev:e2e",
+    "e2e:open": "yarn workspace triper-e2e e2e:open",
+    "e2e:run": "yarn workspace triper-e2e e2e:run"
+  },
+  "engines": {
+    "node": "^14.15"
+  }
+}
