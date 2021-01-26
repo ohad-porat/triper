@@ -1,27 +1,27 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-const TripTile = (props) => {
+const TripTile = ({country, city, title, numberOfDays, description}) => {
   let location = ""
-  if (props.trip.city) {
-    location = `${props.trip.city}, ${props.trip.country}`
+  if (city) {
+    location = `${city}, ${country}`
   } else {
-    location = `${props.trip.country}`
+    location = `${country}`
   }
 
   let numOfDays = ""
-  if (props.trip.numberOfDays) {
-    numOfDays = `Number Of Days: ${props.trip.numberOfDays}`
+  if (numberOfDays) {
+    numOfDays = `${numberOfDays}`
+  } else {
+    numOfDays = <i>Not Provided</i>
   }
-  
+
   return (
     <div>
-      <h2>
-        <Link to={`/trips/${props.trip.id}`}>{props.trip.title}</Link>
-      </h2>
+      <h2>{title}</h2>
       <h3>Location: {location}</h3>
-      <h3>{numOfDays}</h3>
-      <p>{props.trip.description}</p>
+      <h3>Number of Days: {numOfDays}</h3>
+      <p>{description}</p>
     </div>
   )
 }

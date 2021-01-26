@@ -24,7 +24,16 @@ const TripsList = (props) => {
   }, [])
 
   const tripTiles = trips.map((trip) => {
-    return <TripTile key={trip.id} trip={trip} />
+    return (
+      <TripTile
+        key={trip.id}
+        country={trip.country}
+        city={trip.city}
+        title={trip.title}
+        numberOfDays={trip.numberOfDays}
+        description={trip.description}
+      />
+    )
   })
 
   return (
