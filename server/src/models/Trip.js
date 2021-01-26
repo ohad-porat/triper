@@ -1,4 +1,3 @@
-const { ExtendedAPIPlugin } = require("webpack")
 const Model = require("./Model")
 
 class Trip extends Model {

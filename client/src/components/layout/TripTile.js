@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "react-router-dom"
 
 const TripTile = ({country, city, title, numberOfDays, description}) => {
   let location = ""
