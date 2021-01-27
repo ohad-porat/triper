@@ -27,6 +27,7 @@ const TripsList = (props) => {
     return (
       <TripTile
         key={trip.id}
+        id={trip.id}
         country={trip.country}
         city={trip.city}
         title={trip.title}
