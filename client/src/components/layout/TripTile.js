@@ -1,7 +1,9 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-const TripTile = ({ country, city, title, numberOfDays, description, id }) => {
+const TripTile = (props) => {
+  const { country, city, title, numberOfDays, description, id } = props.trip
+
   let location = ""
   if (city) {
     location = `${city}, ${country}`

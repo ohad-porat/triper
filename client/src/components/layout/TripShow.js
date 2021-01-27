@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 
 const TripShow = (props) => {
   const [trip, setTrip] = useState({})
+
   const id = props.match.params.id
 
   const showTrip = async () => {
@@ -22,6 +23,7 @@ const TripShow = (props) => {
   useEffect(() => {
     showTrip()
   }, [])
+
   return (
     <div className="show">
       <h1 className="tripTitle">{trip.title}</h1>
