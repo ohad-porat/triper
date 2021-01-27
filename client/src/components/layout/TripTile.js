@@ -1,6 +1,9 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
-const TripTile = ({country, city, title, numberOfDays, description}) => {
+const TripTile = (props) => {
+  const { country, city, title, numberOfDays, description, id } = props.trip
+
   let location = ""
   if (city) {
     location = `${city}, ${country}`
@@ -16,8 +19,10 @@ const TripTile = ({country, city, title, numberOfDays, description}) => {
   }
 
   return (
-    <div>
-      <h2>{title}</h2>
+    <div className="tripList">
+      <Link to={`/${id}`}>
+        <h2>{title}</h2>
+      </Link>
       <h3>Location: {location}</h3>
       <h3>Number of Days: {numOfDays}</h3>
       <p>{description}</p>
