@@ -12,3 +12,23 @@
   -moz-tab-size: 4;
   tab-size: 4;
 }
+
+.show {
+  display: flex;
+  margin: 100px auto 0;
+  width: 60%;
+  flex-direction: column;
+  border: 2px solid brown;
+  padding: 20px;
+  border-radius: 25px;
+  background: url(https://i.pinimg.com/originals/2a/66/b7/2a66b7151e30f47e3c4f430c25902a41.jpg);
+  text-align: center;
+}
+
+body {
+  background: url(https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80);
+}
+
+.tripTitle {
+  font-family: cursive;
+}

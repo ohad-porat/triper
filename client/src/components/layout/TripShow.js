@@ -23,8 +23,8 @@ const TripShow = (props) => {
     showTrip()
   }, [])
   return (
-    <div>
-      <h1>{trip.title}</h1>
+    <div className="show">
+      <h1 className="tripTitle">{trip.title}</h1>
       <h4>
         {trip.city}, {trip.country} {trip.numberOfDays} day trip
       </h4>

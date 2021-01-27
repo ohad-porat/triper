@@ -17,7 +17,7 @@ const TripTile = ({ country, city, title, numberOfDays, description, id }) => {
   }
 
   return (
-    <div>
+    <div className="tripList">
       <Link to={`/${id}`}>
         <h2>{title}</h2>
       </Link>
