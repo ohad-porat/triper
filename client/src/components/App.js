@@ -9,6 +9,7 @@ import SignInForm from "./authentication/SignInForm"
 import TopBar from "./layout/TopBar"
 import TripsList from "./layout/TripsList"
 import TripShow from "./layout/TripShow"
+import TripForm from "./layout/TripForm"
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined)
@@ -26,6 +27,7 @@ const App = (props) => {
       <TopBar user={currentUser} />
       <Switch>
         <Route exact path="/" component={TripsList} />
+        <Route exact path="/new-trip" component={TripForm} />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/:id" component={TripShow} />
