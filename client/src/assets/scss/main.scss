@@ -18,6 +18,25 @@ body {
   tab-size: 4;
 }
 
+textarea {
+  height: 100px;
+}
+
+.submit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-button-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-button:hover {
+  background-color: #2a91d0;
+}
 .show {
   display: flex;
   margin: 100px auto 0;
