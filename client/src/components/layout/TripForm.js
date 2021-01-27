@@ -4,7 +4,6 @@ import { Redirect } from "react-router-dom";
 import translateServerErrors from "../../services/translateServerErrors.js"
 import ErrorList from "./ErrorList.js"
 
-
 const TripForm = (props) => {
   const [form, setForm] = useState({
     title: "",
@@ -38,7 +37,9 @@ const TripForm = (props) => {
         throw(error)
       } else {
         const body = await response.json()
-        setShouldRedirect(true)
+        if (body.trip) {          
+          setShouldRedirect(true)
+        }
       }
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)
@@ -57,7 +58,6 @@ const TripForm = (props) => {
     addNewTrip()
   }
 
-
   if (shouldRedirect) {
     return <Redirect to="/" />
   }
@@ -65,73 +65,90 @@ const TripForm = (props) => {
   return(
     <form className="form" onSubmit={handleSubmit}>
       <ErrorList errors={errors} />
-      <label htmlFor="title"> Title of the Trip
-        <input 
-        type="text"
-        id="title"
-        name="title"
-        onChange={handleInputChange}
-        value={form.title}
-        />
-      </label>
 
-      <label htmlFor="continent"> Continent
-        <input 
-        type="text"
-        id="continent"
-        name="continent"
-        onChange={handleInputChange}
-        value={form.continent}
-        />
-      </label>
+      <div className="grid-container">
+        <div className="grid-x grid-padding-x">
 
-      <label htmlFor="country"> Country
-        <input 
-        type="text"
-        id="country"
-        name="country"
-        onChange={handleInputChange}
-        value={form.country}
-        />
-      </label>
+          <div className="medium-12 cell">
+            <label htmlFor="title"> Title of the Trip
+              <input 
+                type="text"
+                id="title"
+                name="title"
+                onChange={handleInputChange}
+                value={form.title}
+              />
+            </label>
+          </div>
 
-      <label htmlFor="city"> City
-        <input 
-        type="text"
-        id="city"
-        name="city"
-        onChange={handleInputChange}
-        value={form.city}
-        />
-      </label>
+          <div className="medium-3 cell">
+            <label htmlFor="continent"> Continent
+              <input 
+                type="text"
+                id="continent"
+                name="continent"
+                onChange={handleInputChange}
+                value={form.continent}
+              />
+            </label>
+          </div>
 
-      <label htmlFor="numberOfDays"> Number of Days
-        <input 
-        type="number"
-        id="numberOfDays"
-        name="numberOfDays"
-        onChange={handleInputChange}
-        value={form.number}
-        />
-      </label>
+          <div className="medium-3 cell">
+            <label htmlFor="country"> Country
+              <input 
+                type="text"
+                id="country"
+                name="country"
+                onChange={handleInputChange}
+                value={form.country}
+              />
+            </label>
+          </div>
 
-      <label htmlFor="description"> Description
-        <textarea 
-        name="description"
-        id="description"
-        onChange={handleInputChange}
-        value={form.description}
-        />
-      </label>
+          <div className="medium-4 cell">
+            <label htmlFor="city"> City
+              <input 
+                type="text"
+                id="city"
+                name="city"
+                onChange={handleInputChange}
+                value={form.city}
+              />
+            </label>
+          </div>
 
-      <div>
-        <input type="submit" value="Submit" />
+          <div className="medium-2 cell">
+            <label htmlFor="numberOfDays"> Days
+              <input 
+                type="number"
+                id="numberOfDays"
+                name="numberOfDays"
+                onChange={handleInputChange}
+                value={form.number}
+              />
+            </label>
+          </div>
+
+          <div className="medium-12 cell">
+            <label htmlFor="description"> Description
+              <textarea 
+                rows="5"
+                name="description"
+                id="description"
+                onChange={handleInputChange}
+                value={form.description}
+              />
+            </label>
+          </div>
+
+          <div className="medium-12 cell submit-button-div">
+            <input type="submit" value="Submit" className="button large submit-button" />
+          </div>
+
+        </div>
       </div>
-
     </form>
   )
 }
-
-
 
 export default TripForm
