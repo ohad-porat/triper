@@ -30,9 +30,11 @@ tripsRouter.get("/:id", async (req, res) => {
 
 tripsRouter.post("/", async (req, res) => {
   const body = req.body
+  const userId = req.user.id
   const cleanBody = cleanUserInput(body)
+  
   try {
-    const newTrip = await Trip.query().insertAndFetch(cleanBody)
+    const newTrip = await Trip.query().insertAndFetch({ ...cleanBody, userId })
     return res.status(201).json({ trip: newTrip })
   } catch (error) {
     if (error instanceof ValidationError) {
