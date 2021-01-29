@@ -21,8 +21,9 @@ tripsRouter.get("/", async (req, res) => {
 tripsRouter.get("/:id", async (req, res) => {
   const id = req.params.id
   try {
-    const trips = await Trip.query().findById(id)
-    return res.status(200).json({ trips })
+    const rawTrip = await Trip.query().findById(id)
+    const trip = await TripSerializer.getDetails(rawTrip)
+    return res.status(200).json({ trip })
   } catch (error) {
     return res.status(500).json({ errors: error })
   }

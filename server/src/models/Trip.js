@@ -19,6 +19,21 @@ class Trip extends Model {
       },
     }
   }
+
+  static get relationMappings() {
+    const { Comment } = require("./index.js")
+    
+    return {
+      comments: {
+        relation: Model.HasManyRelation,
+        modelClass: Comment,
+        join: {
+          from: "trips.id",
+          to: "comments.tripId"
+        }
+      }
+    }
+  }
 }
 
 module.exports = Trip

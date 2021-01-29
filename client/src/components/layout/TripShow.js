@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import CommentForm from "./CommentForm.js"
+import CommentList from "./CommentList.js"
 
 const TripShow = (props) => {
   const [trip, setTrip] = useState({})
@@ -14,7 +16,7 @@ const TripShow = (props) => {
         throw error
       }
       const tripData = await response.json()
-      setTrip(tripData.trips)
+      setTrip(tripData.trip)
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)
     }
@@ -31,6 +33,8 @@ const TripShow = (props) => {
         {trip.city}, {trip.country} {trip.numberOfDays} day trip
       </h4>
       <p>{trip.description}</p>
+      <CommentForm />
+      <CommentList tripId={id}/>
     </div>
   )
 }
