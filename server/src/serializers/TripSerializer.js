@@ -35,12 +35,11 @@ class TripSerializer {
       serializedTrip[attribute] = trip[attribute]
     }
     const comments = await trip.$relatedQuery("comments")
-    let serializedComments = []
-    for (let i = 0; i < comments.length; i++) {
-      const comment = await CommentSerializer.getDetails(comments[i])
-      serializedComments.push(comment)
-    }
-    serializedTrip.comments = serializedComments
+    serializedTrip.comments = await Promise.all(
+      comments.map((comment) => {
+        return CommentSerializer.getDetails(comment)
+      })
+    )
     return serializedTrip
   }
 }
