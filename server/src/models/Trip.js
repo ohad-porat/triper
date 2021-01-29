@@ -5,10 +5,25 @@ class Trip extends Model {
     return "trips"
   }
 
+  static get relationMappings() {
+    const { User } = require("./index.js")
+
+    return {
+      users: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: User,
+        join: {
+          from: "trips.userId",
+          to: "users.id"
+        }
+      }
+    }
+  }
+
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["continent", "country", "title", "description"],
+      required: ["continent", "country", "title", "description", "userId"],
       properties: {
         continent: { type: "string" },
         country: { type: "string" },
@@ -16,6 +31,7 @@ class Trip extends Model {
         title: { type: "string" },
         numberOfDays: { type: ["integer", "string"] },
         description: { type: "text" },
+        userId: { type: ["integer", "string"] },
       },
     }
   }

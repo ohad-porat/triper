@@ -2,7 +2,7 @@ import React from "react"
 
 const CommentTile = (props) => {
   const { title, content } = props.comment
-  const user = props.comment.user.email
+  const userName = props.comment.user.userName
 
   let conditionalContent = ""
   if (content) {
@@ -14,7 +14,7 @@ const CommentTile = (props) => {
   return (
     <div>
       <h4>{title}</h4>
-      <p>by {user}</p>
+      <p>by {userName}</p>
       <p>{conditionalContent}</p>
     </div>
   )
