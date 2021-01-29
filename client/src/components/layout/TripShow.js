@@ -39,7 +39,7 @@ const TripShow = (props) => {
         {trip.city}, {trip.country} {trip.numberOfDays} day trip
       </h4>
       <p>{trip.description}</p>
-      <CommentForm />
+      <CommentForm tripId={trip.id} showTrip={showTrip} />
       {commentTiles}
     </div>
   )

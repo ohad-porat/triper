@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import getCurrentUser from "../../services/getCurrentUser.js"
 
 import translateServerErrors from "../../services/translateServerErrors.js"
 import ErrorList from "./ErrorList.js"
@@ -7,8 +8,28 @@ const Comment = (props) => {
   const [comment, setComment] = useState({
     title: "",
     content: "",
+    userId: "",
+    tripId: "",
   })
   const [errors, setErrors] = useState([])
+
+  const [currentUser, setCurrentUser] = useState({
+    id: "",
+    email: "",
+    userName: "",
+  })
+  useEffect(() => {
+    getCurrentUser()
+      .then((user) => {
+        setCurrentUser(user)
+      })
+      .catch(() => {
+        setCurrentUser(null)
+      })
+  }, [])
+
+  comment.tripId = props.tripId
+  comment.userId = currentUser.id
 
   const handleInputChange = (event) => {
     setComment({
@@ -17,9 +38,7 @@ const Comment = (props) => {
     })
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-
+  const handlePost = async () => {
     try {
       const response = await fetch("/api/v1/comments", {
         method: "POST",
@@ -45,9 +64,19 @@ const Comment = (props) => {
     }
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    handlePost()
+    if (comment.title.trim() !== "") {
+      setComment({ ...comment, title: "", content: "" })
+    }
+    props.showTrip()
+  }
+
   return (
     <div className="comment">
       <form onSubmit={handleSubmit}>
+        <ErrorList errors={errors} />
         <label htmlFor="title">
           Title:
           <input
