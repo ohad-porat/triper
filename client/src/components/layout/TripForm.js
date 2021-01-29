@@ -133,8 +133,8 @@ const TripForm = (props) => {
             <label htmlFor="description"> Description
               <textarea 
                 rows="5"
-                name="description"
                 id="description"
+                name="description"
                 onChange={handleInputChange}
                 value={form.description}
               />

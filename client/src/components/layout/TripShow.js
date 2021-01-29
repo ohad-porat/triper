@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react"
+import CommentTile from "./CommentTile.js"
 
 const TripShow = (props) => {
-  const [trip, setTrip] = useState({})
+  const [trip, setTrip] = useState({
+    comments: []
+  })
 
   const id = props.match.params.id
 
@@ -14,7 +17,7 @@ const TripShow = (props) => {
         throw error
       }
       const tripData = await response.json()
-      setTrip(tripData.trips)
+      setTrip(tripData.trip)
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)
     }
@@ -24,6 +27,10 @@ const TripShow = (props) => {
     showTrip()
   }, [])
 
+  const commentTiles = trip.comments.map((comment) => {
+    return <CommentTile key={comment.id} comment={comment} />
+  })
+
   return (
     <div className="show">
       <h1 className="tripTitle">{trip.title}</h1>
@@ -31,6 +38,8 @@ const TripShow = (props) => {
         {trip.city}, {trip.country} {trip.numberOfDays} day trip
       </h4>
       <p>{trip.description}</p>
+      <h3>Comments</h3>
+      {commentTiles}
     </div>
   )
 }

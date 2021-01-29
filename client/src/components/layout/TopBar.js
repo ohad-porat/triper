@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import SignOutButton from "../authentication/SignOutButton";
+import React from "react"
+import { Link } from "react-router-dom"
+import SignOutButton from "../authentication/SignOutButton"
 
 const TopBar = ({ user }) => {
   const unauthenticatedListItems = [
@@ -12,13 +12,13 @@ const TopBar = ({ user }) => {
         Sign Up
       </Link>
     </li>,
-  ];
+  ]
 
   const authenticatedListItems = [
     <li key="sign-out">
       <SignOutButton />
     </li>,
-  ];
+  ]
 
   return (
     <div className="top-bar">
@@ -34,10 +34,12 @@ const TopBar = ({ user }) => {
         </ul>
       </div>
       <div className="top-bar-right">
-        <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
+        <ul className="menu">
+          {user ? authenticatedListItems : unauthenticatedListItems}
+        </ul>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TopBar;
+export default TopBar
