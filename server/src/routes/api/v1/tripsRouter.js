@@ -20,9 +20,22 @@ tripsRouter.get("/", async (req, res) => {
 
 tripsRouter.get("/:id", async (req, res) => {
   const id = req.params.id
+  const currentUserId = req.user.id
+
   try {
     const trips = await Trip.query().findById(id)
-    return res.status(200).json({ trips })
+    return res.status(200).json({ trips: { ...trips, currentUserId } })
+  } catch (error) {
+    return res.status(500).json({ errors: error })
+  }
+})
+
+tripsRouter.delete("/:id", async (req, res) => {
+  const tripId = req.params.id
+
+  try {
+    await Trip.query().deleteById(tripId)
+    return res.status(204).json({ message: "The trip has been deleted!"})
   } catch (error) {
     return res.status(500).json({ errors: error })
   }
@@ -32,7 +45,7 @@ tripsRouter.post("/", async (req, res) => {
   const body = req.body
   const userId = req.user.id
   const cleanBody = cleanUserInput(body)
-  
+
   try {
     const newTrip = await Trip.query().insertAndFetch({ ...cleanBody, userId })
     return res.status(201).json({ trip: newTrip })
