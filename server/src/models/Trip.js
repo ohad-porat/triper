@@ -17,7 +17,6 @@ class Trip extends Model {
           to: "users.id",
         },
       },
-
       comments: {
         relation: Model.HasManyRelation,
         modelClass: Comment,
@@ -26,7 +25,6 @@ class Trip extends Model {
           to: "comments.tripId",
         },
       },
-
       votes: {
         relation:Model.HasManyRelation,
         modelClass: Vote,
@@ -41,7 +39,7 @@ class Trip extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["continent", "country", "title", "description", "userId"],
+      required: ["continent", "country", "title", "description"],
       properties: {
         continent: { type: "string" },
         country: { type: "string" },

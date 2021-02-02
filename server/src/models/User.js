@@ -35,7 +35,6 @@ class User extends uniqueFunc(Model) {
           to: "trips.userId",
         },
       },
-
       comments: {
         relation: Model.HasManyRelation,
         modelClass: Comment,
@@ -44,7 +43,6 @@ class User extends uniqueFunc(Model) {
           to: "comments.userId",
         },
       },
-
       votes: {
         relation: Model.HasManyRelation,
         modelClass: Vote,

@@ -5,7 +5,11 @@ import cleanUserInput from "../../../services/cleanUserInput.js"
 
 import Trip from "../../../models/Trip.js"
 import TripSerializer from "../../../serializers/TripSerializer.js"
+<<<<<<< HEAD
 import tripVotesRouter from "./tripVotesRouter.js"
+=======
+import tripCommentsRouter from "./tripCommentsRouter.js"
+>>>>>>> 10bfac66780f8a59b5c4f06a818119b71f18c82f
 
 const tripsRouter = new express.Router()
 
@@ -46,6 +50,10 @@ tripsRouter.post("/", async (req, res) => {
   }
 })
 
+<<<<<<< HEAD
 tripsRouter.use("/:tripId/votes", tripVotesRouter)
+=======
+tripsRouter.use("/:tripId/comments", tripCommentsRouter)
+>>>>>>> 10bfac66780f8a59b5c4f06a818119b71f18c82f
 
 export default tripsRouter
