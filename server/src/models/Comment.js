@@ -30,7 +30,6 @@ class Comment extends Model {
           to: "trips.id"
         }
       },
-
       user: {
         relation: Model.BelongsToOneRelation,
         modelClass: User,

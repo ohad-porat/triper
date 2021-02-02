@@ -2,6 +2,7 @@ import express from "express"
 
 import { ValidationError } from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
+import CommentSerializer from "../../../serializers/CommentSerializer.js"
 
 import Comment from "../../../models/Comment.js"
 
@@ -19,7 +20,8 @@ tripCommentsRouter.post("/", async (req, res) => {
       userId,
       tripId,
     })
-    return res.status(201).json({ newComment })
+    const serializedComment = await CommentSerializer.getDetails(newComment)
+    return res.status(201).json({ serializedComment })
   } catch (error) {
     console.log(error)
     if (error instanceof ValidationError) {

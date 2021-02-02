@@ -17,7 +17,6 @@ class Trip extends Model {
           to: "users.id",
         },
       },
-
       comments: {
         relation: Model.HasManyRelation,
         modelClass: Comment,

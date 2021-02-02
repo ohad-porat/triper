@@ -52,8 +52,12 @@ const TripShow = (props) => {
         throw error
       } else {
         const responseBody = await response.json()
-        if (responseBody.newComment) {
-          showTrip()
+        if (responseBody.serializedComment) {
+          let newComments = trip.comments.concat(responseBody.serializedComment)
+          setTrip({
+            ...trip,
+            comments: newComments,
+          })
         }
 
         return true
