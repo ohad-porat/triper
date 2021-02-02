@@ -24,7 +24,7 @@ class User extends uniqueFunc(Model) {
   }
 
   static get relationMappings() {
-    const { Trip } = require("./index.js")
+    const { Trip, Comment, Vote } = require("./index.js")
 
     return {
       trips: {
@@ -32,7 +32,25 @@ class User extends uniqueFunc(Model) {
         modelClass: Trip,
         join: {
           from: "users.id",
-          to: "trips.userId"
+          to: "trips.userId",
+        },
+      },
+
+      comments: {
+        relation: Model.HasManyRelation,
+        modelClass: Comment,
+        join: {
+          from: "users.id",
+          to: "comments.userId",
+        },
+      },
+
+      votes: {
+        relation: Model.HasManyRelation,
+        modelClass: Vote,
+        join: {
+          from: "users.id",
+          to: "votes.userId"
         }
       }
     }
@@ -46,22 +64,7 @@ class User extends uniqueFunc(Model) {
       properties: {
         email: { type: "string" },
         cryptedPassword: { type: "string" },
-        userName: { type: "string" }
-      },
-    }
-  }
-
-  static get relationMappings() {
-    const { Comment } = require("./index.js")
-
-    return {
-      comments: {
-        relation: Model.HasManyRelation,
-        modelClass: Comment,
-        join: {
-          from: "user.id",
-          to: "comments.userId",
-        },
+        userName: { type: "string" },
       },
     }
   }

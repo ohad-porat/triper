@@ -6,7 +6,7 @@ class Trip extends Model {
   }
 
   static get relationMappings() {
-    const { User } = require("./index.js")
+    const { User, Comment, Vote } = require("./index.js")
 
     return {
       users: {
@@ -14,7 +14,25 @@ class Trip extends Model {
         modelClass: User,
         join: {
           from: "trips.userId",
-          to: "users.id"
+          to: "users.id",
+        },
+      },
+
+      comments: {
+        relation: Model.HasManyRelation,
+        modelClass: Comment,
+        join: {
+          from: "trips.id",
+          to: "comments.tripId",
+        },
+      },
+
+      votes: {
+        relation:Model.HasManyRelation,
+        modelClass: Vote,
+        join: {
+          from: "trips.id",
+          to: "votes.tripId"
         }
       }
     }
@@ -33,21 +51,6 @@ class Trip extends Model {
         description: { type: "text" },
         userId: { type: ["integer", "string"] },
       },
-    }
-  }
-
-  static get relationMappings() {
-    const { Comment } = require("./index.js")
-    
-    return {
-      comments: {
-        relation: Model.HasManyRelation,
-        modelClass: Comment,
-        join: {
-          from: "trips.id",
-          to: "comments.tripId"
-        }
-      }
     }
   }
 }
