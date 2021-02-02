@@ -23,7 +23,6 @@ tripCommentsRouter.post("/", async (req, res) => {
     const serializedComment = await CommentSerializer.getDetails(newComment)
     return res.status(201).json({ serializedComment })
   } catch (error) {
-    console.log(error)
     if (error instanceof ValidationError) {
       return res.status(422).json({ errors: error.data })
     }
