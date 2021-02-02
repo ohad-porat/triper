@@ -32,11 +32,12 @@ class Vote extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["vote"],
+      required: ["vote", "voted"],
       properties: {
         userId: { type: ["integer", "string"] },
         tripId: { type: ["integer", "string"] },
         vote: { type: ["integer", "string"], minimum: -1, maximum: 1 },
+        voted: { type: ["boolean", "string"] },
       },
     }
   }

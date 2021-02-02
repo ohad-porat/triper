@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import CommentTile from "./CommentTile.js"
+import UpVotes from "./UpVotes.js"
 
 const TripShow = (props) => {
   const [trip, setTrip] = useState({
@@ -38,6 +39,7 @@ const TripShow = (props) => {
         {trip.city}, {trip.country} {trip.numberOfDays} day trip
       </h4>
       <p>{trip.description}</p>
+      <UpVotes />
       <h3>Comments</h3>
       {commentTiles}
     </div>
