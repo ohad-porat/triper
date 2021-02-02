@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react"
 import CommentTile from "./CommentTile.js"
+import CommentForm from "./CommentForm.js"
+
+import translateServerErrors from "../../services/translateServerErrors.js"
 
 const TripShow = (props) => {
   const [trip, setTrip] = useState({
-    comments: []
+    comments: [],
   })
 
-  const id = props.match.params.id
+  const [errors, setErrors] = useState([])
+
+  const tripId = props.match.params.id
 
   const showTrip = async () => {
     try {
-      const response = await fetch(`/api/v1/trips/${id}`)
+      const response = await fetch(`/api/v1/trips/${tripId}`)
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
@@ -27,6 +32,41 @@ const TripShow = (props) => {
     showTrip()
   }, [])
 
+  const postComment = async (comment) => {
+    try {
+      const response = await fetch(`/api/v1/trips/${tripId}/comments`, {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+        body: JSON.stringify(comment),
+      })
+      if (!response.ok) {
+        if (response.status == 422) {
+          const body = await response.json()
+          const newErrors = translateServerErrors(body.errors)
+          return setErrors(newErrors)
+        }
+        const errorMessage = `${response.status} (${response.statusText})`
+        const error = new Error(errorMessage)
+        throw error
+      } else {
+        const responseBody = await response.json()
+        if (responseBody.serializedComment) {
+          let newComments = trip.comments.concat(responseBody.serializedComment)
+          setTrip({
+            ...trip,
+            comments: newComments,
+          })
+        }
+
+        return true
+      }
+    } catch (error) {
+      console.error(`Error in fetch: ${error.message}`)
+    }
+  }
+
   const commentTiles = trip.comments.map((comment) => {
     return <CommentTile key={comment.id} comment={comment} />
   })
@@ -38,7 +78,12 @@ const TripShow = (props) => {
         {trip.city}, {trip.country} {trip.numberOfDays} day trip
       </h4>
       <p>{trip.description}</p>
-      <h3>Comments</h3>
+      <CommentForm
+        tripId={trip.id}
+        showTrip={showTrip}
+        errors={errors}
+        postComment={postComment}
+      />
       {commentTiles}
     </div>
   )
