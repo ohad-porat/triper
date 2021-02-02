@@ -5,6 +5,7 @@ import cleanUserInput from "../../../services/cleanUserInput.js"
 
 import Trip from "../../../models/Trip.js"
 import TripSerializer from "../../../serializers/TripSerializer.js"
+import tripVotesRouter from "./tripVotesRouter.js"
 
 const tripsRouter = new express.Router()
 
@@ -44,5 +45,7 @@ tripsRouter.post("/", async (req, res) => {
     return res.status(500).json({ errors: error })
   }
 })
+
+tripsRouter.use("/:tripId/votes", tripVotesRouter)
 
 export default tripsRouter
