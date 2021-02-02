@@ -8,7 +8,7 @@ class Comment extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["title", "tripId", "userId"],
+      required: ["title"],
       properties: {
         title: { type: "string" },
         content: { type: "text" },

@@ -22,7 +22,7 @@ const App = (props) => {
         setCurrentUser(null)
       })
   }, [])
-  
+
   return (
     <Router>
       <TopBar user={currentUser} />

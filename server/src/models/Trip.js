@@ -6,7 +6,7 @@ class Trip extends Model {
   }
 
   static get relationMappings() {
-    const { User } = require("./index.js")
+    const { User, Comment } = require("./index.js")
 
     return {
       users: {
@@ -14,16 +14,25 @@ class Trip extends Model {
         modelClass: User,
         join: {
           from: "trips.userId",
-          to: "users.id"
-        }
-      }
+          to: "users.id",
+        },
+      },
+
+      comments: {
+        relation: Model.HasManyRelation,
+        modelClass: Comment,
+        join: {
+          from: "trips.id",
+          to: "comments.tripId",
+        },
+      },
     }
   }
 
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["continent", "country", "title", "description", "userId"],
+      required: ["continent", "country", "title", "description"],
       properties: {
         continent: { type: "string" },
         country: { type: "string" },
@@ -33,21 +42,6 @@ class Trip extends Model {
         description: { type: "text" },
         userId: { type: ["integer", "string"] },
       },
-    }
-  }
-
-  static get relationMappings() {
-    const { Comment } = require("./index.js")
-    
-    return {
-      comments: {
-        relation: Model.HasManyRelation,
-        modelClass: Comment,
-        join: {
-          from: "trips.id",
-          to: "comments.tripId"
-        }
-      }
     }
   }
 }

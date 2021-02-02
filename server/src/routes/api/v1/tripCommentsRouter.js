@@ -5,16 +5,23 @@ import cleanUserInput from "../../../services/cleanUserInput.js"
 
 import Comment from "../../../models/Comment.js"
 
-const commentsRouter = new express.Router()
+const tripCommentsRouter = new express.Router({ mergeParams: true })
 
-commentsRouter.post("/", async (req, res) => {
+tripCommentsRouter.post("/", async (req, res) => {
   const { body } = req
+  const userId = req.user.id
+  const { tripId } = req.params
   const formInput = cleanUserInput(body)
 
   try {
-    const newComment = await Comment.query().insertAndFetch(formInput)
+    const newComment = await Comment.query().insertAndFetch({
+      ...formInput,
+      userId,
+      tripId,
+    })
     return res.status(201).json({ newComment })
   } catch (error) {
+    console.log(error)
     if (error instanceof ValidationError) {
       return res.status(422).json({ errors: error.data })
     }
@@ -22,4 +29,4 @@ commentsRouter.post("/", async (req, res) => {
   }
 })
 
-export default commentsRouter
+export default tripCommentsRouter
