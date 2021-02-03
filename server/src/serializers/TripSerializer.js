@@ -28,6 +28,7 @@ class TripSerializer {
       "title",
       "numberOfDays",
       "description",
+      "userId"
     ]
 
     let serializedTrip = {}

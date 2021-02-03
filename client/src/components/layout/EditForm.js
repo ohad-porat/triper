@@ -1,30 +1,61 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { Redirect } from "react-router-dom"
 
 import translateServerErrors from "../../services/translateServerErrors.js"
 import ErrorList from "./ErrorList.js"
 
-const TripForm = (props) => {
+const EditForm = (props) => {
   const [form, setForm] = useState({
     title: "",
     continent: "",
     country: "",
     city: "",
     numberOfDays: "",
-    description: ""
+    description: "",
+    userId: "",
+    id: ""
   })
-
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [errors, setErrors] = useState([])
 
-  const addNewTrip = async () => {
+  const tripId = props.match.params.id
+
+  const findTrip = async () => {
     try {
-      const response = await fetch("/api/v1/trips", {
-        method: "POST",
+      const response = await fetch(`/api/v1/trips/${tripId}`)
+      if (!response.ok) {
+        const errorMessage = `${response.status} (${response.statusText})`
+        const error = new Error(errorMessage)
+        throw error
+      }
+      const tripData = await response.json()
+      
+      const { city, continent, country, description, id, numberOfDays, title, userId } = tripData.trip
+      setForm({ city, continent, country, description, id, numberOfDays, title, userId })
+    } catch (error) {
+      console.error(`Error in fetch: ${error.message}`)
+    }
+  }
+
+  useEffect(() => {
+    findTrip()
+  }, [])
+
+  const handleInputChange = (event) => {
+    setForm({
+      ...form,
+      [event.currentTarget.name]: event.currentTarget.value,
+    })
+  }
+
+  const editTrip = async () => {
+    try {
+      const response = await fetch(`/api/v1/trips/${tripId}`, {
+        method: "PATCH",
         headers: new Headers({
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         }),
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       })
       if (!response.ok) {
         if (response.status == 422) {
@@ -34,44 +65,36 @@ const TripForm = (props) => {
         }
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
-        throw(error)
+        throw error
       } else {
-        const body = await response.json()
-        if (body.trip) {          
-          setShouldRedirect(true)
-        }
+        setShouldRedirect(true)
       }
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)
     }
   }
 
-  const handleInputChange = event => {
-    setForm({
-      ...form,
-      [event.currentTarget.name]: event.currentTarget.value
-    })
-  }
-
-  const handleSubmit = event => {
-    event.preventDefault()
-    addNewTrip()
-  }
-
   if (shouldRedirect) {
-    return <Redirect to="/" />
+    return <Redirect to={`/${tripId}`} />
   }
 
-  return(
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    editTrip()
+  }
+
+  return (
     <form className="form" onSubmit={handleSubmit}>
       <ErrorList errors={errors} />
 
       <div className="grid-container">
         <div className="grid-x grid-padding-x">
-
           <div className="medium-12 cell">
-            <label htmlFor="title"> <span className="label">Title of the Trip</span>
-              <input 
+            <label htmlFor="title">
+              {" "}
+              <span className="label">Title of the Trip</span>
+              
+              <input
                 type="text"
                 id="title"
                 name="title"
@@ -82,8 +105,10 @@ const TripForm = (props) => {
           </div>
 
           <div className="medium-3 cell">
-            <label htmlFor="continent"> <span className="label">Continent</span>
-              <input 
+            <label htmlFor="continent">
+              {" "}
+              <span className="label">Continent</span>
+              <input
                 type="text"
                 id="continent"
                 name="continent"
@@ -94,8 +119,10 @@ const TripForm = (props) => {
           </div>
 
           <div className="medium-3 cell">
-            <label htmlFor="country"> <span className="label">Country</span>
-              <input 
+            <label htmlFor="country">
+              {" "}
+              <span className="label">Country</span>
+              <input
                 type="text"
                 id="country"
                 name="country"
@@ -106,8 +133,10 @@ const TripForm = (props) => {
           </div>
 
           <div className="medium-4 cell">
-            <label htmlFor="city"> <span className="label">City</span>
-              <input 
+            <label htmlFor="city">
+              {" "}
+              <span className="label">City</span>
+              <input
                 type="text"
                 id="city"
                 name="city"
@@ -118,23 +147,27 @@ const TripForm = (props) => {
           </div>
 
           <div className="medium-2 cell">
-            <label htmlFor="numberOfDays"> <span className="label">Days</span>
-              <input 
+            <label htmlFor="numberOfDays">
+              {" "}
+              <span className="label">Days</span>
+              <input
                 type="number"
                 id="numberOfDays"
                 name="numberOfDays"
                 onChange={handleInputChange}
-                value={form.number}
+                value={form.numberOfDays}
               />
             </label>
           </div>
 
           <div className="medium-12 cell">
-            <label htmlFor="description"> <span className="label">Description</span>
-              <textarea 
+            <label htmlFor="description">
+              {" "}
+              <span className="label">Description</span>
+              <textarea
                 rows="5"
-                id="description"
                 name="description"
+                id="description"
                 onChange={handleInputChange}
                 value={form.description}
               />
@@ -142,13 +175,16 @@ const TripForm = (props) => {
           </div>
 
           <div className="medium-12 cell submit-button-div">
-            <input type="submit" value="Submit" className="button large submit-button" />
+            <input
+              type="submit"
+              value="Submit"
+              className="button large submit-button"
+            />
           </div>
-
         </div>
       </div>
     </form>
   )
 }
 
-export default TripForm
+export default EditForm
