@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Redirect } from "react-router-dom"
+import { Redirect, Link } from "react-router-dom"
 import CommentTile from "./CommentTile.js"
 import CommentForm from "./CommentForm.js"
 
@@ -10,8 +10,7 @@ const TripShow = (props) => {
     comments: [],
   })
   const [shouldRedirect, setShouldRedirect] = useState(false)
-  const [errors, setErrors] = useState([])
-  const [editRedirect, setEditRedirect] = useState(false)
+  const [errors, setErrors] = useState({})
 
   const tripId = props.match.params.id
 
@@ -57,22 +56,10 @@ const TripShow = (props) => {
     return <Redirect to="/" />
   }
 
-  const handleEditShowPage = (event) => {
-    try {
-      setEditRedirect(true)
-    } catch (error) {
-      console.error(`Error in fetch: ${error.message}`)
-    }
-  }
-
-  if (editRedirect === true) {
-    return <Redirect to={`/${tripId}/edit`} />
-  }
-
   const userButton = [
     <div key="delete-edit" className="delete-edit-div">
       <button className="submit-button alert button" onClick={handleDeleteShowPage}>Delete</button>
-      <button className="submit-button success button" onClick={handleEditShowPage}>Edit</button>
+      <Link to={`/trips/${tripId}/edit`}><button className="submit-button success button">Edit</button></Link>
     </div>
   ]
 

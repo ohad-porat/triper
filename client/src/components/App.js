@@ -32,8 +32,8 @@ const App = (props) => {
         <Route exact path="/new-trip" component={TripForm} />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <Route exact path="/:id" component={TripShow} />
-        <Route exact path="/:id/edit" component={EditForm} />
+        <Route exact path="/trips/:id" component={TripShow} />
+        <Route exact path="/trips/:id/edit" component={EditForm} />
       </Switch>
     </Router>
   )

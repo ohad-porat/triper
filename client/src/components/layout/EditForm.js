@@ -16,11 +16,11 @@ const EditForm = (props) => {
     id: ""
   })
   const [shouldRedirect, setShouldRedirect] = useState(false)
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState({})
 
   const tripId = props.match.params.id
 
-  const findTrip = async () => {
+  const getTrip = async () => {
     try {
       const response = await fetch(`/api/v1/trips/${tripId}`)
       if (!response.ok) {
@@ -38,7 +38,7 @@ const EditForm = (props) => {
   }
 
   useEffect(() => {
-    findTrip()
+    getTrip()
   }, [])
 
   const handleInputChange = (event) => {
@@ -75,7 +75,7 @@ const EditForm = (props) => {
   }
 
   if (shouldRedirect) {
-    return <Redirect to={`/${tripId}`} />
+    return <Redirect to={`/trips/${tripId}`} />
   }
 
   const handleSubmit = (event) => {
@@ -91,7 +91,6 @@ const EditForm = (props) => {
         <div className="grid-x grid-padding-x">
           <div className="medium-12 cell">
             <label htmlFor="title">
-              {" "}
               <span className="label">Title of the Trip</span>
               
               <input
@@ -106,7 +105,6 @@ const EditForm = (props) => {
 
           <div className="medium-3 cell">
             <label htmlFor="continent">
-              {" "}
               <span className="label">Continent</span>
               <input
                 type="text"
@@ -120,7 +118,6 @@ const EditForm = (props) => {
 
           <div className="medium-3 cell">
             <label htmlFor="country">
-              {" "}
               <span className="label">Country</span>
               <input
                 type="text"
@@ -134,7 +131,6 @@ const EditForm = (props) => {
 
           <div className="medium-4 cell">
             <label htmlFor="city">
-              {" "}
               <span className="label">City</span>
               <input
                 type="text"
@@ -148,7 +144,6 @@ const EditForm = (props) => {
 
           <div className="medium-2 cell">
             <label htmlFor="numberOfDays">
-              {" "}
               <span className="label">Days</span>
               <input
                 type="number"
@@ -162,7 +157,6 @@ const EditForm = (props) => {
 
           <div className="medium-12 cell">
             <label htmlFor="description">
-              {" "}
               <span className="label">Description</span>
               <textarea
                 rows="5"

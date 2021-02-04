@@ -47,7 +47,7 @@ const CommentForm = (props) => {
         </label>
 
         <div className="submit-button-div">
-          <input type="submit" className="button medium submit-button" value="submit comment" />
+          <input type="submit" className="button medium submit-button" value="Submit Comment" />
         </div>
 
       </form>

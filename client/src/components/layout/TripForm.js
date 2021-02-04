@@ -15,7 +15,7 @@ const TripForm = (props) => {
   })
 
   const [shouldRedirect, setShouldRedirect] = useState(false)
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState({})
 
   const addNewTrip = async () => {
     try {

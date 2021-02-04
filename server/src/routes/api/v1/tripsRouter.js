@@ -56,20 +56,20 @@ tripsRouter.patch("/:id", async (req, res) => {
     title,
     description,
     userId,
+    city
   } = body
-  const formInput = cleanUserInput({ id, continent, country, title, description, userId, })
+  const formInput = cleanUserInput({ id, continent, country, title, description, userId })
   
   let numberOfDays = body.numberOfDays
   if (numberOfDays === "") {
     numberOfDays = null
   }
-  const city = body.city
   
   try {
     const updatedTrip = await Trip.query().updateAndFetchById(parseInt(body.id), {
       ...formInput,
     numberOfDays,
-    city,
+    city
     })
     return res.status(200).json({ trip: updatedTrip })
   } catch (error) {
