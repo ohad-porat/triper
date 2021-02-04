@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react"
 import CommentTile from "./CommentTile.js"
-<<<<<<< HEAD
-import UpVotes from "./UpVotes.js"
-=======
+import Votes from "./Votes.js"
 import CommentForm from "./CommentForm.js"
 
 import translateServerErrors from "../../services/translateServerErrors.js"
->>>>>>> 10bfac66780f8a59b5c4f06a818119b71f18c82f
 
 const TripShow = (props) => {
   const [trip, setTrip] = useState({
@@ -82,17 +79,14 @@ const TripShow = (props) => {
         {trip.city}, {trip.country} {trip.numberOfDays} day trip
       </h4>
       <p>{trip.description}</p>
-<<<<<<< HEAD
-      <UpVotes />
+      <Votes tripId={tripId}/>
       <h3>Comments</h3>
-=======
       <CommentForm
         tripId={trip.id}
         showTrip={showTrip}
         errors={errors}
         postComment={postComment}
       />
->>>>>>> 10bfac66780f8a59b5c4f06a818119b71f18c82f
       {commentTiles}
     </div>
   )

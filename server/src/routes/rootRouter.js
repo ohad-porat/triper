@@ -11,9 +11,4 @@ rootRouter.use("/api/v1/user-sessions", userSessionsRouter)
 rootRouter.use("/api/v1/users", usersRouter)
 rootRouter.use("/api/v1/trips", tripsRouter)
 
-<<<<<<< HEAD
-
-export default rootRouter;
-=======
 export default rootRouter
->>>>>>> 10bfac66780f8a59b5c4f06a818119b71f18c82f

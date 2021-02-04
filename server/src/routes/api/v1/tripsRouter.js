@@ -22,6 +22,7 @@ tripsRouter.get("/", async (req, res) => {
 
 tripsRouter.get("/:id", async (req, res) => {
   const id = req.params.id
+  
   try {
     const rawTrip = await Trip.query().findById(id)
     const trip = await TripSerializer.getDetails(rawTrip)
@@ -35,7 +36,7 @@ tripsRouter.post("/", async (req, res) => {
   const body = req.body
   const userId = req.user.id
   const cleanBody = cleanUserInput(body)
-  
+
   try {
     const newTrip = await Trip.query().insertAndFetch({ ...cleanBody, userId })
     return res.status(201).json({ trip: newTrip })

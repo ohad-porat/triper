@@ -7,7 +7,8 @@
  */
 exports.up = async (knex) => {
   return knex.schema.table("votes", (t) => {
-    t.boolean("voted").notNullable()
+    t.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())
+    t.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now())
   })
 }
 
@@ -16,6 +17,7 @@ exports.up = async (knex) => {
  */
 exports.down = (knex) => {
   return knex.schema.table("votes", (t) => {
-    t.dropColumn("voted")
+    t.dropColumn("createdAt")
+    t.dropColumn("updatedAt")
   })
 }
