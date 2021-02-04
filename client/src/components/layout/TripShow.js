@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import CommentTile from "./CommentTile.js"
+import Votes from "./Votes.js"
 import CommentForm from "./CommentForm.js"
 
 import translateServerErrors from "../../services/translateServerErrors.js"
@@ -78,6 +79,8 @@ const TripShow = (props) => {
         {trip.city}, {trip.country} {trip.numberOfDays} day trip
       </h4>
       <p>{trip.description}</p>
+      <Votes tripId={tripId}/>
+      <h3>Comments</h3>
       <CommentForm
         tripId={trip.id}
         showTrip={showTrip}

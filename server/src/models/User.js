@@ -24,7 +24,7 @@ class User extends uniqueFunc(Model) {
   }
 
   static get relationMappings() {
-    const { Trip, Comment } = require("./index.js")
+    const { Trip, Comment, Vote } = require("./index.js")
 
     return {
       trips: {
@@ -43,6 +43,14 @@ class User extends uniqueFunc(Model) {
           to: "comments.userId",
         },
       },
+      votes: {
+        relation: Model.HasManyRelation,
+        modelClass: Vote,
+        join: {
+          from: "users.id",
+          to: "votes.userId"
+        }
+      }
     }
   }
 
