@@ -37,7 +37,7 @@ class Trip extends Model {
         country: { type: "string" },
         city: { type: "string" },
         title: { type: "string" },
-        numberOfDays: { type: ["integer", "string"] },
+        numberOfDays: { type: ["integer", "string", "null"] },
         description: { type: "text" },
         userId: { type: ["integer", "string"] },
       },

@@ -21,11 +21,62 @@ tripsRouter.get("/", async (req, res) => {
 
 tripsRouter.get("/:id", async (req, res) => {
   const id = req.params.id
+  let currentUserId = undefined
+  if (req.user) {
+    currentUserId = req.user.id
+  }
+
   try {
     const rawTrip = await Trip.query().findById(id)
     const trip = await TripSerializer.getDetails(rawTrip)
-    return res.status(200).json({ trip })
+    return res.status(200).json({ trip: { ...trip, currentUserId } })
   } catch (error) {
+    console.log(error)
+    return res.status(500).json({ errors: error })
+  }
+})
+
+tripsRouter.delete("/:id", async (req, res) => {
+  const tripId = req.params.id
+
+  try {
+    await Trip.query().deleteById(tripId)
+    return res.status(204).json({ message: "The trip has been deleted!"})
+  } catch (error) {
+    return res.status(500).json({ errors: error })
+  }
+})
+
+tripsRouter.patch("/:id", async (req, res) => {
+  const body = req.body
+  const {
+    id,
+    continent,
+    country,
+    title,
+    description,
+    userId,
+    city
+  } = body
+  const formInput = cleanUserInput({ id, continent, country, title, description, userId })
+  
+  let numberOfDays = body.numberOfDays
+  if (numberOfDays === "") {
+    numberOfDays = null
+  }
+  
+  try {
+    const updatedTrip = await Trip.query().updateAndFetchById(parseInt(body.id), {
+      ...formInput,
+    numberOfDays,
+    city
+    })
+    return res.status(200).json({ trip: updatedTrip })
+  } catch (error) {
+    console.log(error)
+    if (error instanceof ValidationError) {
+      return res.status(422).json({ errors: error.data })
+    }
     return res.status(500).json({ errors: error })
   }
 })

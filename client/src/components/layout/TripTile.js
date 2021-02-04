@@ -20,7 +20,7 @@ const TripTile = (props) => {
 
   return (
     <div className="tripList">
-      <Link to={`/${id}`}>
+      <Link to={`/trips/${id}`}>
         <h2>{title}</h2>
       </Link>
       <h3>Location: {location}</h3>

@@ -20,6 +20,14 @@ const TopBar = ({ user }) => {
     </li>,
   ]
 
+  const authenticatedUserPost = [
+    <li key="auth-user-post">
+      <Link to="/new-trip">Add a Trip</Link>
+    </li>,
+  ]
+
+  const emptyLi = [<li key="emptyli"></li>]
+
   return (
     <div className="top-bar">
       <div className="top-bar-left">
@@ -28,9 +36,7 @@ const TopBar = ({ user }) => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/new-trip">Add a Trip</Link>
-          </li>
+          {user ? authenticatedUserPost : emptyLi}
         </ul>
       </div>
       <div className="top-bar-right">

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { Redirect, Link } from "react-router-dom"
 import CommentTile from "./CommentTile.js"
 import CommentForm from "./CommentForm.js"
 
@@ -8,8 +9,8 @@ const TripShow = (props) => {
   const [trip, setTrip] = useState({
     comments: [],
   })
-
-  const [errors, setErrors] = useState([])
+  const [shouldRedirect, setShouldRedirect] = useState(false)
+  const [errors, setErrors] = useState({})
 
   const tripId = props.match.params.id
 
@@ -31,6 +32,38 @@ const TripShow = (props) => {
   useEffect(() => {
     showTrip()
   }, [])
+
+  const handleDeleteShowPage = async () => {
+    try {
+      const response = await fetch(`/api/v1/trips/${tripId}`, {
+        method: "DELETE",
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+      })
+      if (!response.ok) {
+        const errorMessage = `${response.status} (${response.statusText})`
+        const error = new Error(errorMessage)
+        throw error
+      }
+      setShouldRedirect(true)
+    } catch (error) {
+      console.error(`Error in fetch: ${error.message}`)
+    }
+  }
+
+  if (shouldRedirect === true) {
+    return <Redirect to="/" />
+  }
+
+  const userButton = [
+    <div key="delete-edit" className="delete-edit-div">
+      <button className="submit-button alert button" onClick={handleDeleteShowPage}>Delete</button>
+      <Link to={`/trips/${tripId}/edit`}><button className="submit-button success button">Edit</button></Link>
+    </div>
+  ]
+
+  const emptyPtag = [<p key="emptyP"></p>]
 
   const postComment = async (comment) => {
     try {
@@ -78,6 +111,7 @@ const TripShow = (props) => {
         {trip.city}, {trip.country} {trip.numberOfDays} day trip
       </h4>
       <p>{trip.description}</p>
+      {trip.userId === trip.currentUserId ? userButton : emptyPtag}
       <CommentForm
         tripId={trip.id}
         showTrip={showTrip}

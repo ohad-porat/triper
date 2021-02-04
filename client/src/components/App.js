@@ -10,6 +10,7 @@ import TopBar from "./layout/TopBar"
 import TripsList from "./layout/TripsList"
 import TripShow from "./layout/TripShow"
 import TripForm from "./layout/TripForm"
+import EditForm from "./layout/EditForm"
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined)
@@ -31,7 +32,8 @@ const App = (props) => {
         <Route exact path="/new-trip" component={TripForm} />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <Route exact path="/:id" component={TripShow} />
+        <Route exact path="/trips/:id" component={TripShow} />
+        <Route exact path="/trips/:id/edit" component={EditForm} />
       </Switch>
     </Router>
   )

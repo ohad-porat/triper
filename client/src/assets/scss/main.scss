@@ -4,7 +4,7 @@
 // place global css here
 
 body {
-  background: url(https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80);
+  background: url(https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1266&q=80);
 }
 
 *,
@@ -34,6 +34,14 @@ textarea {
   align-items: center;
 }
 
+.delete-edit-div {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: auto;
+  width: 40%;
+}
+
 .submit-button:hover {
   background-color: #2a91d0;
 }
@@ -45,10 +53,42 @@ textarea {
   border: 2px solid brown;
   padding: 20px;
   border-radius: 25px;
-  background: url(https://i.pinimg.com/originals/2a/66/b7/2a66b7151e30f47e3c4f430c25902a41.jpg);
+  background: url(https://www.solidbackgrounds.com/images/1920x1080/1920x1080-light-steel-blue-solid-color-background.jpg);
   text-align: center;
 }
 
 .tripTitle {
   font-family: cursive;
+}
+
+.form {
+  margin-top: 100px;
+}
+
+.label {
+  background-color: #269178;
+}
+
+.tripList {
+  display: flex;
+  background-color: #f2f2f2;
+  justify-content: space-evenly;
+  border: 2px solid #c93257;
+  margin: auto;
+  width: 60%;
+  margin-top: 10px;
+  flex-direction: column;
+  border-radius: 10px;
+  text-align: center;
+  font-size: small;
+}
+
+.tripListHeader {
+  text-align: center;
+  background-color: whitesmoke;
+  width: 30%;
+  margin: auto;
+  border-radius: 30px;
+  color: rgb(95, 95, 219);
+  margin-top: 10px;
 }
