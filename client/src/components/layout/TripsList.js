@@ -29,7 +29,7 @@ const TripsList = (props) => {
 
   return (
     <>
-      <h1>Find Your Trip</h1>
+      <h1 id="list-title">Find Your Trip</h1>
       {tripTiles}
     </>
   )

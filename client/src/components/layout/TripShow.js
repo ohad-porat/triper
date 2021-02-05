@@ -107,11 +107,11 @@ const TripShow = (props) => {
   return (
     <div className="show">
       <h1 className="tripTitle">{trip.title}</h1>
-      <h4>
-        {trip.city}, {trip.country} {trip.numberOfDays} day trip
-      </h4>
-      <p>{trip.description}</p>
-      {trip.userId === trip.currentUserId ? userButton : emptyPtag}
+      <div className="tripShowText">
+        <h4>{trip.city}, {trip.country} {trip.numberOfDays} day trip</h4>
+        <p>{trip.description}</p>
+        {trip.userId === trip.currentUserId ? userButton : emptyPtag}
+      </div>
       <CommentForm
         tripId={trip.id}
         showTrip={showTrip}

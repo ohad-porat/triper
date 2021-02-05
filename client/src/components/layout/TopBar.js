@@ -31,7 +31,7 @@ const TopBar = ({ user }) => {
   return (
     <div className="top-bar">
       <div className="top-bar-left">
-        <ul className="menu">
+        <ul className="menu callout">
           <li className="menu-text">Triper</li>
           <li>
             <Link to="/">Home</Link>
