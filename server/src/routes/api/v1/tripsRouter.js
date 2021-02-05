@@ -5,6 +5,7 @@ import cleanUserInput from "../../../services/cleanUserInput.js"
 
 import Trip from "../../../models/Trip.js"
 import TripSerializer from "../../../serializers/TripSerializer.js"
+import tripVotesRouter from "./tripVotesRouter.js"
 import tripCommentsRouter from "./tripCommentsRouter.js"
 
 const tripsRouter = new express.Router()
@@ -85,7 +86,7 @@ tripsRouter.post("/", async (req, res) => {
   const body = req.body
   const userId = req.user.id
   const cleanBody = cleanUserInput(body)
-  
+
   try {
     const newTrip = await Trip.query().insertAndFetch({ ...cleanBody, userId })
     return res.status(201).json({ trip: newTrip })
@@ -97,6 +98,7 @@ tripsRouter.post("/", async (req, res) => {
   }
 })
 
+tripsRouter.use("/:tripId/votes", tripVotesRouter)
 tripsRouter.use("/:tripId/comments", tripCommentsRouter)
 
 export default tripsRouter
