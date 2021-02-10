@@ -58,9 +58,16 @@ const TripShow = (props) => {
 
   const userButton = [
     <div key="delete-edit" className="delete-edit-div">
-      <button className="submit-button alert button" onClick={handleDeleteShowPage}>Delete</button>
-      <Link to={`/trips/${tripId}/edit`}><button className="submit-button success button">Edit</button></Link>
-    </div>
+      <button
+        className="submit-button alert button"
+        onClick={handleDeleteShowPage}
+      >
+        Delete
+      </button>
+      <Link to={`/trips/${tripId}/edit`}>
+        <button className="submit-button success button">Edit</button>
+      </Link>
+    </div>,
   ]
 
   const emptyPtag = [<p key="emptyP"></p>]
@@ -104,11 +111,17 @@ const TripShow = (props) => {
     return <CommentTile key={comment.id} comment={comment} />
   })
 
+  const cityAndCountry = `${trip.city}, ${trip.country}`
+  const onlyCountry = `${trip.country}`
+  const numOfDaysProvided = `${trip.numberOfDays} day trip`
+  const numOfDaysNotProvided = ""
+
   return (
     <div className="show">
       <h1 className="tripTitle">{trip.title}</h1>
       <h4>
-        {trip.city}, {trip.country} {trip.numberOfDays} day trip
+        {trip.city ? cityAndCountry : onlyCountry} <br />
+        {trip.numberOfDays ? numOfDaysProvided : numOfDaysNotProvided}
       </h4>
       <p>{trip.description}</p>
       {trip.userId === trip.currentUserId ? userButton : emptyPtag}
